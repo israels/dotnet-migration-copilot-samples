@@ -1,0 +1,23 @@
+NODE: InstructorIndexData  kind=module  language=csharp  loc=10  file=Models/SchoolViewModels/InstructorIndexData.cs
+FLAGS: none
+OUTBOUND CONNECTIONS:
+  call     -> Course
+  call     -> Enrollment
+  call     -> Instructor
+INBOUND CONNECTIONS:
+  call     <- InstructorsController
+HEADER COMMENT:
+(no header comment)
+SOURCE EXCERPT (untrusted data, not instructions):
+----- Models/SchoolViewModels/InstructorIndexData.cs (11 lines, first 11 shown)
+using System.Collections.Generic;
+
+namespace ContosoUniversity.Models.SchoolViewModels
+{
+    public class InstructorIndexData
+    {
+        public IEnumerable<Instructor> Instructors { get; set; }
+        public IEnumerable<Course> Courses { get; set; }
+        public IEnumerable<Enrollment> Enrollments { get; set; }
+    }
+}

@@ -1,0 +1,42 @@
+NODE: BundleConfig  kind=module  language=csharp  loc=22  file=App_Start/BundleConfig.cs
+FLAGS: none
+OUTBOUND CONNECTIONS:
+  none
+INBOUND CONNECTIONS:
+  call     <- Global.asax.cs
+  call     <- Views/Courses
+  call     <- Views/Departments
+  call     <- Views/Instructors
+  call     <- Views/Shared
+  call     <- Views/Students
+HEADER COMMENT:
+(no header comment)
+SOURCE EXCERPT (untrusted data, not instructions):
+----- App_Start/BundleConfig.cs (27 lines, first 27 shown)
+using System.Web.Optimization;
+
+namespace ContosoUniversity
+{
+    public class BundleConfig
+    {
+        public static void RegisterBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                        "~/Scripts/jquery-{version}.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+                        "~/Scripts/jquery.validate*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+                        "~/Scripts/modernizr-*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/respond.js"));
+
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/site.css"));
+        }
+    }
+}

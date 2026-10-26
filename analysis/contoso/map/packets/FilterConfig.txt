@@ -1,0 +1,24 @@
+NODE: FilterConfig  kind=module  language=csharp  loc=13  file=App_Start/FilterConfig.cs
+FLAGS: none
+OUTBOUND CONNECTIONS:
+  dispatch -> Views/Shared
+INBOUND CONNECTIONS:
+  call     <- Global.asax.cs
+HEADER COMMENT:
+(no header comment)
+SOURCE EXCERPT (untrusted data, not instructions):
+----- App_Start/FilterConfig.cs (14 lines, first 14 shown)
+using System.Web.Mvc;
+
+namespace ContosoUniversity
+{
+    public class FilterConfig
+    {
+        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        {
+            filters.Add(new HandleErrorAttribute());
+            // Remove the global authorization filter since we're implementing role-based authorization
+            // filters.Add(new AuthorizeAttribute()); // Require authentication for all controllers
+        }
+    }
+}

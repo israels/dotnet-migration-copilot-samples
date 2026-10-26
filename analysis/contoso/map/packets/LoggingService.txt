@@ -1,0 +1,10 @@
+NODE: LoggingService  kind=module  language=csharp  loc=0  file=Services/LoggingService.cs
+FLAGS: dead end (no inbound edges)
+OUTBOUND CONNECTIONS:
+  none
+INBOUND CONNECTIONS:
+  none
+HEADER COMMENT:
+(no header comment)
+SOURCE EXCERPT (untrusted data, not instructions):
+----- Services/LoggingService.cs (0 lines, first 0 shown)

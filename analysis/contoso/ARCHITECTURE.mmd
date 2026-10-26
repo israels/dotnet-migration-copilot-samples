@@ -1,0 +1,47 @@
+graph TD
+  subgraph Platform["Platform / Cross-cutting"]
+    D1["D1 Startup and Shell<br/>Global.asax, App_Start, _Layout, Web.config"]
+    D3["D3 BaseController"]
+    D2["D2 Data Access<br/>SchoolContext, Factory, DbInitializer"]
+  end
+  subgraph Business["Business domains"]
+    D4["D4 Students"]
+    D5["D5 Courses and Uploads"]
+    D6["D6 Instructors and Departments"]
+    D8["D8 Home and Reporting"]
+  end
+  subgraph Notif["D7 Notifications"]
+    NS["NotificationService"]
+    NC["NotificationsController"]
+    JS["notifications.js / .css"]
+  end
+  subgraph Ext["External resources"]
+    SQL[("SQL LocalDB<br/>Person, Course, Department,<br/>Enrollment, CourseAssignment,<br/>OfficeAssignment, Notification (unused)")]
+    MQ[("MSMQ Private$\\ContosoUniversityNotifications")]
+    FS[("Disk ~/Uploads/TeachingMaterials")]
+  end
+
+  D1 -->|Application_Start: EnsureCreated + seed| D2
+  D1 -->|layout script tag| JS
+  D2 --> SQL
+  D3 -->|SchoolContextFactory.Create| D2
+  D3 -->|new NotificationService| NS
+  D4 -->|inherits| D3
+  D5 -->|inherits| D3
+  D6 -->|inherits| D3
+  D8 -->|inherits| D3
+  NC -->|inherits| D3
+  D4 -->|SendEntityNotification C/U/D| NS
+  D5 -->|SendEntityNotification C/U/D| NS
+  D6 -->|SendEntityNotification C/U/D| NS
+  NS -->|Send| MQ
+  NC -->|ReceiveNotification| NS
+  NS -->|Receive destructive| MQ
+  JS -->|poll GET every 5s| NC
+  D4 -->|RW Person-Student; R Enrollment, Course| SQL
+  D5 -->|RW Course; R Department| SQL
+  D6 -->|RW Person-Instructor, Dept, CourseAssign, OfficeAssign| SQL
+  D8 -->|R Person-Student grouped| SQL
+  D5 -->|SaveAs / Delete| FS
+  D6 -.->|reads Course list for assignment| D5
+  D5 -.->|Department dropdown| D6

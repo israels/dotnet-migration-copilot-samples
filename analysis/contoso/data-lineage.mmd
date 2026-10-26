@@ -1,0 +1,45 @@
+%% Programs to stores. Solid arrow = write, dotted arrow = read. From topology.json.
+graph LR
+  SC[StudentsController]
+  CC[CoursesController]
+  IC[InstructorsController]
+  DC[DepartmentsController]
+  HC[HomeController]
+  NS[NotificationService]
+  INIT["DbInitializer<br/>(seed, writes all 6 school tables)"]
+  CV[Views/Courses]
+
+  P[(Person<br/>Student + Instructor TPH)]
+  CO[(Course)]
+  DE[(Department)]
+  EN[(Enrollment)]
+  CA[(CourseAssignment)]
+  OA[(OfficeAssignment)]
+  NT[(Notification<br/>never used)]
+  MQ[(MSMQ<br/>ContosoUniversityNotifications)]
+  UP[(Disk<br/>Uploads/TeachingMaterials)]
+
+  SC -->|write| P
+  SC -.->|read| EN
+  SC -.->|read| CO
+  CC -->|write| CO
+  CC -.->|read| DE
+  CC -->|SaveAs / Delete| UP
+  CV -.->|img src| UP
+  IC -->|write| P
+  IC -->|write| CA
+  IC -->|write| OA
+  IC -->|"write (clears InstructorID)"| DE
+  IC -.->|read| CO
+  IC -.->|read| EN
+  DC -->|write| DE
+  DC -.->|read| P
+  HC -.->|read, group by date| P
+  NS -->|Send| MQ
+  NS -.->|"Receive (destructive)"| MQ
+  INIT -->|seed| P
+  INIT -->|seed| CO
+  INIT -->|seed| DE
+  INIT -->|seed| EN
+  INIT -->|seed| CA
+  INIT -->|seed| OA

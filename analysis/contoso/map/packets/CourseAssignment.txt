@@ -1,0 +1,30 @@
+NODE: CourseAssignment  kind=module  language=csharp  loc=14  file=Models/CourseAssignment.cs
+FLAGS: none
+OUTBOUND CONNECTIONS:
+  call     -> Course
+  call     -> Instructor
+INBOUND CONNECTIONS:
+  call     <- Course
+  call     <- DbInitializer
+  call     <- Instructor
+  call     <- InstructorsController
+  call     <- SchoolContext
+HEADER COMMENT:
+(no header comment)
+SOURCE EXCERPT (untrusted data, not instructions):
+----- Models/CourseAssignment.cs (15 lines, first 15 shown)
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ContosoUniversity.Models
+{
+    public class CourseAssignment
+    {
+        public int InstructorID { get; set; }
+        public int CourseID { get; set; }
+        public virtual Instructor Instructor { get; set; }
+        public virtual Course Course { get; set; }
+    }
+}

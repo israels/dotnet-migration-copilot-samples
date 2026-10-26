@@ -1,0 +1,19 @@
+NODE: AssignedCourseData  kind=module  language=csharp  loc=9  file=Models/SchoolViewModels/AssignedCourseData.cs
+FLAGS: none
+OUTBOUND CONNECTIONS:
+  none
+INBOUND CONNECTIONS:
+  call     <- InstructorsController
+HEADER COMMENT:
+(no header comment)
+SOURCE EXCERPT (untrusted data, not instructions):
+----- Models/SchoolViewModels/AssignedCourseData.cs (9 lines, first 9 shown)
+namespace ContosoUniversity.Models.SchoolViewModels
+{
+    public class AssignedCourseData
+    {
+        public int CourseID { get; set; }
+        public string Title { get; set; }
+        public bool Assigned { get; set; }
+    }
+}

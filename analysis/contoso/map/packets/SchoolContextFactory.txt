@@ -1,0 +1,28 @@
+NODE: SchoolContextFactory  kind=module  language=csharp  loc=15  file=Data/SchoolContextFactory.cs
+FLAGS: none
+OUTBOUND CONNECTIONS:
+  call     -> SchoolContext
+  read     -> Web.config
+INBOUND CONNECTIONS:
+  call     <- BaseController
+HEADER COMMENT:
+(no header comment)
+SOURCE EXCERPT (untrusted data, not instructions):
+----- Data/SchoolContextFactory.cs (17 lines, first 17 shown)
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+
+namespace ContosoUniversity.Data
+{
+    public static class SchoolContextFactory
+    {
+        public static SchoolContext Create()
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            var optionsBuilder = new DbContextOptionsBuilder<SchoolContext>();
+            optionsBuilder.UseSqlServer(connectionString);
+            
+            return new SchoolContext(optionsBuilder.Options);
+        }
+    }
+}

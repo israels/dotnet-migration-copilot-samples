@@ -1,0 +1,78 @@
+%% Domain-level call/dispatch graph for contoso (from topology.json). Entry points highlighted.
+graph TD
+  subgraph Platform["Startup and Shell"]
+    GA["Global.asax.cs<br/>(app start)"]
+    RC["RouteConfig<br/>{controller}/{action}/{id}"]
+    FC[FilterConfig]
+    BC[BundleConfig]
+    LAY["Views/Shared<br/>_Layout + Error"]
+    BASE[BaseController]
+  end
+  subgraph Data["Data Access"]
+    FAC[SchoolContextFactory]
+    CTX[SchoolContext]
+    INIT[DbInitializer]
+  end
+  subgraph Students
+    SC[StudentsController]
+    SV[Views/Students]
+  end
+  subgraph Courses["Courses and Uploads"]
+    CC[CoursesController]
+    CV[Views/Courses]
+  end
+  subgraph Faculty["Instructors and Departments"]
+    IC[InstructorsController]
+    DC[DepartmentsController]
+    IV[Views/Instructors]
+    DV[Views/Departments]
+  end
+  subgraph Notifications["Notifications (MSMQ)"]
+    NC[NotificationsController]
+    NS[NotificationService]
+    JS["notifications.js<br/>(5 s poll)"]
+    NV[Views/Notifications]
+  end
+  subgraph Home["Home and Reporting"]
+    HC[HomeController]
+    HV[Views/Home]
+  end
+
+  GA --> RC
+  GA --> FC
+  GA --> BC
+  GA --> INIT
+  INIT --> CTX
+  RC -.->|route| SC
+  RC -.->|route| CC
+  RC -.->|route| IC
+  RC -.->|route| DC
+  RC -.->|route| NC
+  RC -.->|route| HC
+  FC -.->|HandleError| LAY
+  SC --> BASE
+  CC --> BASE
+  IC --> BASE
+  DC --> BASE
+  NC --> BASE
+  HC --> BASE
+  BASE --> FAC
+  FAC --> CTX
+  BASE --> NS
+  SC -->|C/U/D notify| NS
+  CC -->|C/U/D notify| NS
+  IC -->|C/U/D notify| NS
+  DC -->|C/U/D notify| NS
+  NC -->|receive| NS
+  SC -.->|View| SV
+  CC -.->|View| CV
+  IC -.->|View| IV
+  DC -.->|View| DV
+  NC -.->|View| NV
+  HC -.->|View| HV
+  LAY --> JS
+  LAY --> BC
+  JS -.->|fetch GetNotifications| NC
+
+  classDef entry fill:#cc785c,stroke:#fff,color:#fff
+  class GA,JS,SC,CC,IC,DC,NC,HC entry

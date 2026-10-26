@@ -1,0 +1,86 @@
+NODE: Views/Home  kind=screen  language=razor  loc=63  file=Views/Home
+FLAGS: none
+OUTBOUND CONNECTIONS:
+  dispatch -> CoursesController
+  dispatch -> InstructorsController
+  dispatch -> StudentsController
+INBOUND CONNECTIONS:
+  dispatch <- HomeController
+HEADER COMMENT:
+(view folder: no header comment)
+SOURCE EXCERPT (untrusted data, not instructions):
+----- Views/Home/About.cshtml (26 lines, first 26 shown)
+@model IEnumerable<ContosoUniversity.Models.SchoolViewModels.EnrollmentDateGroup>
+
+@{
+    ViewBag.Title = "Student Body Statistics";
+}
+
+<h2>Student Body Statistics</h2>
+
+<table class="table">
+    <tr>
+        <th>Enrollment Date</th>
+        <th>Students</th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentDate)
+            </td>
+            <td>
+                @item.StudentCount
+            </td>
+        </tr>
+    }
+
+</table>
+----- Views/Home/Contact.cshtml (17 lines, first 17 shown)
+@{
+    ViewBag.Title = "Contact";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<address>
+    Contoso University<br />
+    Redmond, WA 98052-6399<br />
+    <abbr title="Phone">P:</abbr>
+    425.555.0100
+</address>
+
+<address>
+    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+</address>
+----- Views/Home/Index.cshtml (29 lines, first 29 shown)
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Contoso University</h1>
+    <p class="lead">Welcome to Contoso University</p>
+    <p>This sample application demonstrates how to use Entity Framework 6 in an ASP.NET MVC 5 application with Windows Authentication.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Students</h2>
+        <p>
+            Add, edit, and delete students and view their enrollment records.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "Students")">Student List &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Courses</h2>
+        <p>Add, edit, and delete courses and assign them to departments.</p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "Courses")">Course List &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Instructors</h2>
+        <p>Add, edit, and delete instructors and assign them to courses.</p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "Instructors")">Instructor List &raquo;</a></p>
+    </div>
+</div>

@@ -1,0 +1,1368 @@
+{
+  "system": "Contoso University",
+  "root": {
+    "id": "sys",
+    "name": "contoso",
+    "kind": "system",
+    "children": [
+      {
+        "id": "dom:platform",
+        "name": "Startup and Shell",
+        "kind": "domain",
+        "children": [
+          {
+            "id": "Global.asax.cs",
+            "name": "Global.asax.cs",
+            "kind": "module",
+            "loc": 33,
+            "file": "Global.asax.cs",
+            "language": "csharp",
+            "description": "Global.asax.cs is the application's startup entry point. It runs once when the web application launches, sets up the site's request handling, page routing and bundled scripts and styles, and then prepares the school database before any users arrive. During startup it calls FilterConfig, RouteConfig and BundleConfig. It reads the \"DefaultConnection\" connection string from Web.config, uses it to open a SchoolContext, and passes that context to DbInitializer. The packet lists no inbound connections, which fits a module the hosting runtime starts directly."
+          },
+          {
+            "id": "RouteConfig",
+            "name": "RouteConfig",
+            "kind": "module",
+            "loc": 17,
+            "file": "App_Start/RouteConfig.cs",
+            "language": "csharp",
+            "description": "RouteConfig is the application's address book. It decides which part of the Contoso University system answers each web request, and it sends visitors to the Home page's Index screen when no address is given. This 17-line C# module (App_Start/RouteConfig.cs) sets up one \"Default\" route with the pattern {controller}/{action}/{id} and skips .axd resource requests. Global.asax.cs calls it at startup, and it sends requests on to CoursesController, DepartmentsController, HomeController, InstructorsController, NotificationsController and StudentsController."
+          },
+          {
+            "id": "FilterConfig",
+            "name": "FilterConfig",
+            "kind": "module",
+            "loc": 13,
+            "file": "App_Start/FilterConfig.cs",
+            "language": "csharp",
+            "description": "FilterConfig (App_Start/FilterConfig.cs, 13 lines of C#) is a small setup module that decides which rules apply to every page request. Through RegisterGlobalFilters it turns on one rule, HandleErrorAttribute, which applies standard error handling across the application. A line that would have required login on every page through AuthorizeAttribute is commented out, so this module enforces no global sign-in rule. Global.asax.cs calls FilterConfig, and FilterConfig dispatches to Views/Shared."
+          },
+          {
+            "id": "BundleConfig",
+            "name": "BundleConfig",
+            "kind": "module",
+            "loc": 22,
+            "file": "App_Start/BundleConfig.cs",
+            "language": "csharp",
+            "description": "BundleConfig is a small, 22-line startup module (App_Start/BundleConfig.cs). It groups the website's shared browser scripts and stylesheets into named packages so that every page gets a consistent look and the same client-side form validation. Its RegisterBundles method defines four script bundles, for jquery, jqueryval, modernizr and bootstrap, and one style bundle, ~/Content/css, built from bootstrap.css and site.css. It makes no outbound calls. Global.asax.cs calls it at startup. Views/Courses, Views/Departments, Views/Instructors, Views/Shared and Views/Students call it when they render pages."
+          },
+          {
+            "id": "Web.config",
+            "name": "Web.config",
+            "kind": "module",
+            "loc": 132,
+            "file": "Web.config",
+            "language": "xml",
+            "description": "Web.config is the application's central settings file, 132 lines of XML. It names the database connection (DefaultConnection) and the notification queue location (NotificationQueuePath). It also sets limits on request size and execution time, targets framework 4.8 and pins which versions of supporting libraries load. Debug compilation is currently enabled. It calls nothing itself (no outbound connections). Three components read it: Global.asax.cs, NotificationService and SchoolContextFactory. The packet does not show which settings each one uses."
+          },
+          {
+            "id": "BaseController",
+            "name": "BaseController",
+            "kind": "module",
+            "loc": 43,
+            "file": "Controllers/BaseController.cs",
+            "language": "csharp",
+            "description": "BaseController is the shared foundation for the application's screens. It gives each one the same database access and the same way of announcing changes to records, such as a course or student being created or updated. Notifications are always recorded under the user \"System\", since the code notes there is no authentication. A failed notification is only logged and does not stop the user's action. It calls SchoolContextFactory to open a SchoolContext and calls NotificationService. It is called by CoursesController, DepartmentsController, HomeController, InstructorsController, NotificationsController and StudentsController."
+          },
+          {
+            "id": "Views/Shared",
+            "name": "Views/Shared",
+            "kind": "screen",
+            "loc": 58,
+            "file": "Views/Shared",
+            "language": "razor",
+            "description": "Views/Shared is the common look and feel for every Contoso University screen. It supplies the page frame, the navigation menu, the footer and a standard \"An error occurred while processing your request\" page. The menu sends users to HomeController, StudentsController, CoursesController, InstructorsController, DepartmentsController and NotificationsController. The frame calls BundleConfig to load styles and scripts, and it also loads notifications.js. FilterConfig sends errors here. The packet shows no data read or written by this 58-line razor screen."
+          },
+          {
+            "id": "ErrorViewModel",
+            "name": "ErrorViewModel",
+            "kind": "module",
+            "loc": 9,
+            "file": "Models/ErrorViewModel.cs",
+            "language": "csharp",
+            "description": "ErrorViewModel is a small data holder (9 lines of C# in Models/ErrorViewModel.cs, in the ContosoUniversity.Models namespace) that carries details about an application error so they can be shown to the user. It holds a RequestId value and a ShowRequestId flag, which is true only when a RequestId is present. The dependency map shows no outbound connections and no inbound connections, and it flags this node as a dead end. That means nothing in the mapped code calls it, reads it or writes it. The packet is too thin to say whether any error page actually uses it."
+          },
+          {
+            "id": "LoggingService",
+            "name": "LoggingService",
+            "kind": "module",
+            "loc": 0,
+            "file": "Services/LoggingService.cs",
+            "language": "csharp",
+            "description": "LoggingService is a C# module in Services/LoggingService.cs. Its name suggests it was meant to record application activity, but the packet does not confirm that: the file has 0 lines of code and no header comment, so its business purpose cannot be established. The dependency map shows no outbound connections, meaning it calls, reads and writes nothing. It also shows no inbound connections, so no other component calls it, and it is flagged as a dead end. The packet is too thin to say more than that this is an empty, unused placeholder."
+          }
+        ]
+      },
+      {
+        "id": "dom:data",
+        "name": "Data Access",
+        "kind": "domain",
+        "children": [
+          {
+            "id": "SchoolContext",
+            "name": "SchoolContext",
+            "kind": "module",
+            "loc": 67,
+            "file": "Data/SchoolContext.cs",
+            "language": "csharp",
+            "description": "SchoolContext is the application's central gateway to the university database. It defines which records the system keeps, such as courses, departments, enrollments, students, instructors and notifications, and how each maps to a table. Students and Instructors share a single Person table. It references nine entities: Course, CourseAssignment, Department, Enrollment, Instructor, Notification, OfficeAssignment, Person and Student. BaseController, DbInitializer, Global.asax.cs and SchoolContextFactory all call it, so many parts of the application depend on it."
+          },
+          {
+            "id": "SchoolContextFactory",
+            "name": "SchoolContextFactory",
+            "kind": "module",
+            "loc": 15,
+            "file": "Data/SchoolContextFactory.cs",
+            "language": "csharp",
+            "description": "SchoolContextFactory is a small 15-line C# module that gives the application its single, consistent way to open a connection to the school database. Every part of the system that needs student or course data goes through it, so all of them reach the same database the same way. Its one method, Create, reads the \"DefaultConnection\" setting from Web.config, configures it for SQL Server, and returns a new SchoolContext, which is the object it calls. BaseController calls it, so controllers reach their data through this factory. The packet lists no flags."
+          },
+          {
+            "id": "DbInitializer",
+            "name": "DbInitializer",
+            "kind": "module",
+            "loc": 235,
+            "file": "Data/DbInitializer.cs",
+            "language": "csharp",
+            "description": "DbInitializer (Data/DbInitializer.cs, 235 lines) loads starter data into the school database. If the database is empty, it fills it with sample students, instructors, departments, courses and office assignments, so the application has realistic records to show. If it finds any existing students, it stops and changes nothing. Its only caller is Global.asax.cs. It calls SchoolContext and the Student, Instructor, Department, Course, OfficeAssignment, CourseAssignment and Enrollment models. It writes to the Person, Department, Course, OfficeAssignment, CourseAssignment and Enrollment data stores."
+          },
+          {
+            "id": "PaginatedList",
+            "name": "PaginatedList",
+            "kind": "module",
+            "loc": 25,
+            "file": "PaginatedList.cs",
+            "language": "csharp",
+            "description": "PaginatedList is a small shared helper (25 lines of C#, in PaginatedList.cs) that splits long lists of records into pages, so users can browse results one screen at a time. It counts the total records, works out TotalPages, keeps track of the current PageIndex, and reports whether there is a previous or next page. Its Create method takes a query, skips the earlier pages and returns only the requested page. It has no outbound connections and doesn't read or write data stores itself. Its only listed caller is StudentsController."
+          },
+          {
+            "id": "Person",
+            "name": "Person",
+            "kind": "module",
+            "loc": 26,
+            "file": "Models/Person.cs",
+            "language": "csharp",
+            "description": "Person is the shared record for anyone the university tracks by name. It holds an ID, a required Last Name and a required First Name (stored in the FirstName column), each limited to 50 characters, and it builds a Full Name in the form \"Last Name, First Name\". It is an abstract base model of 26 lines of code in Models/Person.cs, so the system never uses it on its own. It has no outbound connections. It is called by Instructor, Student and SchoolContext, which reuse its common identity and naming rules."
+          }
+        ]
+      },
+      {
+        "id": "dom:students",
+        "name": "Students",
+        "kind": "domain",
+        "children": [
+          {
+            "id": "StudentsController",
+            "name": "StudentsController",
+            "kind": "module",
+            "loc": 207,
+            "file": "Controllers/StudentsController.cs",
+            "language": "csharp",
+            "description": "StudentsController is the entry point for managing student records. Staff can list students with search, sorting and pages of 10, view a student's details along with their enrollments and courses, and create or edit students, with checks that the enrollment date falls between 1753 and 9999. It inherits from BaseController and calls Student, Enrollment, Course, PaginatedList and NotificationService. It reads ds:Person, ds:Enrollment and ds:Course, writes ds:Person, and dispatches to Views/Students. RouteConfig, Views/Home, Views/Notifications, Views/Shared and Views/Students dispatch to it."
+          },
+          {
+            "id": "Views/Students",
+            "name": "Views/Students",
+            "kind": "screen",
+            "loc": 267,
+            "file": "Views/Students",
+            "language": "razor",
+            "description": "Views/Students is the set of screens staff use to manage student records. It covers listing students with a name search (\"Find by name\") and sorting, plus Create, Details, Edit and Delete pages showing fields such as LastName, FirstMidName and EnrollmentDate. It is a razor screen of 267 lines with no flags. StudentsController dispatches to it, and its forms and links dispatch back to StudentsController. It also calls BundleConfig."
+          },
+          {
+            "id": "Student",
+            "name": "Student",
+            "kind": "module",
+            "loc": 18,
+            "file": "Models/Student.cs",
+            "language": "csharp",
+            "description": "Student is the data model for a student at Contoso University. It is a small 18-line C# module in Models/Student.cs that builds on the shared Person record. It requires an Enrollment Date, which must fall between 1753 and 9999 and is displayed as yyyy-MM-dd, and it holds the student's collection of Enrollments. On the outbound side it references Person and Enrollment. On the inbound side it is used by DbInitializer, Enrollment, SchoolContext and StudentsController, which is how student records are seeded, stored, linked to enrollments and shown to users."
+          },
+          {
+            "id": "Enrollment",
+            "name": "Enrollment",
+            "kind": "module",
+            "loc": 18,
+            "file": "Models/Enrollment.cs",
+            "language": "csharp",
+            "description": "Enrollment is the record that a Student is enrolled in a Course. Each record carries an EnrollmentID, CourseID, StudentID and an optional Grade from A to F. When no grade is set, the screen shows \"No grade\". It is a small 18-line C# module in Models/Enrollment.cs. It links out to Course and Student. Six components use it: Course, Student, SchoolContext, DbInitializer, InstructorIndexData and StudentsController. The packet lists these links only as calls, so it does not show which ones read or write enrollment data."
+          }
+        ]
+      },
+      {
+        "id": "dom:courses",
+        "name": "Courses and Uploads",
+        "kind": "domain",
+        "children": [
+          {
+            "id": "CoursesController",
+            "name": "CoursesController",
+            "kind": "module",
+            "loc": 232,
+            "file": "Controllers/CoursesController.cs",
+            "language": "csharp",
+            "description": "CoursesController is the entry point for managing the course catalogue: users list, view, create and edit courses, assign each to a department, and optionally attach a teaching-material image (jpg, jpeg, png, gif or bmp, under 5MB). It builds on BaseController, uses Course, Department and NotificationService (a notification follows course creation), reads and writes ds:Course, reads ds:Department, and saves uploads to ds:Disk:Uploads/TeachingMaterials. RouteConfig dispatches requests to it; it renders Views/Courses, and Views/Courses, Views/Home, Views/Notifications and Views/Shared dispatch back to it."
+          },
+          {
+            "id": "Views/Courses",
+            "name": "Views/Courses",
+            "kind": "screen",
+            "loc": 287,
+            "file": "Views/Courses",
+            "language": "razor",
+            "description": "Views/Courses is the set of screens staff use to manage the course catalogue. They list courses and let staff create, view details of, edit and delete a course, with fields such as CourseID, Title, Credits, department name and Teaching Material. Create and Edit submit forms, including file uploads, to CoursesController, which also dispatches to these screens. The 287-line Razor view folder calls BundleConfig for page assets and reads teaching-material files from the disk store Uploads/TeachingMaterials."
+          },
+          {
+            "id": "Course",
+            "name": "Course",
+            "kind": "module",
+            "loc": 23,
+            "file": "Models/Course.cs",
+            "language": "csharp",
+            "description": "Course is the data model for a university course offering. It holds the course number, a title of 3 to 50 characters, a credit value from 0 to 5, the owning department and an optional path to a teaching material image of up to 255 characters. It links out to Department, Enrollment and CourseAssignment. It is used by CoursesController, InstructorsController, StudentsController, SchoolContext, DbInitializer and InstructorIndexData, and also by Department, Enrollment and CourseAssignment."
+          }
+        ]
+      },
+      {
+        "id": "dom:faculty",
+        "name": "Instructors and Departments",
+        "kind": "domain",
+        "children": [
+          {
+            "id": "InstructorsController",
+            "name": "InstructorsController",
+            "kind": "module",
+            "loc": 233,
+            "file": "Controllers/InstructorsController.cs",
+            "language": "csharp",
+            "description": "InstructorsController is an entry point for managing university instructors. Staff use it to list, view, create and edit instructor records, including their office and course assignments. It inherits from BaseController and builds InstructorIndexData and AssignedCourseData view models from the Instructor, Course, CourseAssignment, Department and OfficeAssignment models. It sends change alerts through NotificationService. It reads ds:Course and writes ds:Person, ds:OfficeAssignment, ds:CourseAssignment and ds:Department. RouteConfig and Views/Home, Views/Instructors, Views/Notifications and Views/Shared dispatch to it, and it renders Views/Instructors."
+          },
+          {
+            "id": "DepartmentsController",
+            "name": "DepartmentsController",
+            "kind": "module",
+            "loc": 155,
+            "file": "Controllers/DepartmentsController.cs",
+            "language": "csharp",
+            "description": "DepartmentsController is an entry point that lets staff list, view, create, edit and delete academic departments, including each department's Name, Budget, StartDate and administrator. It also warns users when someone else changed the same record at the same time. It builds on BaseController, uses the Department model, and calls NotificationService to announce new and updated departments. It reads ds:Department and ds:Person, writes ds:Department, and dispatches to Views/Departments. Requests reach it from RouteConfig, Views/Departments, Views/Notifications and Views/Shared."
+          },
+          {
+            "id": "Views/Instructors",
+            "name": "Views/Instructors",
+            "kind": "screen",
+            "loc": 350,
+            "file": "Views/Instructors",
+            "language": "razor",
+            "description": "Views/Instructors is the set of screens staff use to manage instructor records. Users can list instructors, showing last name, first name, hire date, office and courses, and can create, view details of, edit and delete individual instructors. The create and edit forms check what users enter and use anti-forgery tokens. The node is a Razor screen of about 350 lines. InstructorsController dispatches to it, and its forms and links dispatch back to InstructorsController. It also calls BundleConfig."
+          },
+          {
+            "id": "Views/Departments",
+            "name": "Views/Departments",
+            "kind": "screen",
+            "loc": 230,
+            "file": "Views/Departments",
+            "language": "razor",
+            "description": "Views/Departments is the set of Razor screens (230 lines of code) where staff manage the university's departments. They can list departments and see each one's Name, Budget, StartDate and Administrator. They can also create, view details of, edit and delete a department. The Edit screen carries RowVersion, and the Delete screen shows a ConcurrencyErrorMessage, so it appears to warn users when someone else changed the same record. DepartmentsController dispatches to these screens, and the screens dispatch back to DepartmentsController. They also call BundleConfig."
+          },
+          {
+            "id": "Instructor",
+            "name": "Instructor",
+            "kind": "module",
+            "loc": 19,
+            "file": "Models/Instructor.cs",
+            "language": "csharp",
+            "description": "Instructor is the data model for a teaching staff member at the university. It builds on the shared Person record and adds a required Hire Date, which must fall between 1753 and 9999. Each instructor is linked to the courses they teach and to their office. In the dependency map it calls CourseAssignment, OfficeAssignment and Person. It is called by CourseAssignment, DbInitializer, Department, InstructorIndexData, InstructorsController, OfficeAssignment and SchoolContext, so it sits at the center of instructor data flows."
+          },
+          {
+            "id": "Department",
+            "name": "Department",
+            "kind": "module",
+            "loc": 25,
+            "file": "Models/Department.cs",
+            "language": "csharp",
+            "description": "Department is the data model for an academic department in Models/Department.cs. It holds a Name of 3 to 50 characters, a Budget stored as money, a Start Date, an optional InstructorID linking to an Administrator, a RowVersion timestamp, and the department's Courses. It has outbound connections to Course and Instructor. It is called by Course, CoursesController, DbInitializer, DepartmentsController, InstructorsController and SchoolContext, so it sits at the center of how courses, instructors and departments relate."
+          },
+          {
+            "id": "OfficeAssignment",
+            "name": "OfficeAssignment",
+            "kind": "module",
+            "loc": 14,
+            "file": "Models/OfficeAssignment.cs",
+            "language": "csharp",
+            "description": "OfficeAssignment records which office each instructor occupies. It is a small 14-line C# data model in Models/OfficeAssignment.cs. Each record is keyed by InstructorID and holds an \"Office Location\" of up to 50 characters, so each instructor can have at most one office entry. The only thing it calls is Instructor, through a navigation property that links each office to its instructor. It is called by Instructor, InstructorsController, SchoolContext and DbInitializer. That means it is used when instructors are managed, when data is saved and loaded, and when the database is first seeded. The packet lists no flags."
+          },
+          {
+            "id": "CourseAssignment",
+            "name": "CourseAssignment",
+            "kind": "module",
+            "loc": 14,
+            "file": "Models/CourseAssignment.cs",
+            "language": "csharp",
+            "description": "CourseAssignment is a small C# data model (14 lines, Models/CourseAssignment.cs) that records which instructor teaches which course. It links the two by holding an InstructorID and a CourseID. It has no logic of its own and no header comment. It points out to Course and Instructor through navigation properties. Five components point to it: Course, Instructor, InstructorsController, SchoolContext and DbInitializer. That is where instructor-to-course assignments are managed, stored and seeded. The packet lists no flags."
+          },
+          {
+            "id": "InstructorIndexData",
+            "name": "InstructorIndexData",
+            "kind": "module",
+            "loc": 10,
+            "file": "Models/SchoolViewModels/InstructorIndexData.cs",
+            "language": "csharp",
+            "description": "InstructorIndexData is a small, 10-line C# view model in Models/SchoolViewModels/InstructorIndexData.cs. It bundles three lists into one package for the instructor overview screen: instructors, the courses they teach and the enrollments in those courses. It contains no business logic or data access of its own. The dependency map shows call links from it to Course, Enrollment and Instructor, which are the types of its three lists. Its only inbound connection is from InstructorsController, which presumably fills it in and passes it to the screen."
+          },
+          {
+            "id": "AssignedCourseData",
+            "name": "AssignedCourseData",
+            "kind": "module",
+            "loc": 9,
+            "file": "Models/SchoolViewModels/AssignedCourseData.cs",
+            "language": "csharp",
+            "description": "AssignedCourseData is a small view model (9 lines of C#, in Models/SchoolViewModels/AssignedCourseData.cs) that describes one course in relation to an instructor. It holds a CourseID, the course Title, and an Assigned flag that shows whether the course is currently assigned. In business terms, it appears to support screens where staff choose which courses an instructor teaches. The packet lists no outbound connections, so it calls, reads and writes nothing. Its only inbound connection is a call from InstructorsController. The packet does not show how that controller uses it."
+          }
+        ]
+      },
+      {
+        "id": "dom:notifications",
+        "name": "Notifications (MSMQ)",
+        "kind": "domain",
+        "children": [
+          {
+            "id": "NotificationService",
+            "name": "NotificationService",
+            "kind": "module",
+            "loc": 107,
+            "file": "Services/NotificationService.cs",
+            "language": "csharp",
+            "description": "NotificationService is the application's change-alert channel. When records are created, updated or deleted, it writes a readable message and puts it on a queue so users can later see what changed. It builds a Notification, reads its queue setting from Web.config, and both writes to and reads from the MSMQ queue ContosoUniversityNotifications. It is called by BaseController, CoursesController, DepartmentsController, InstructorsController, NotificationsController and StudentsController."
+          },
+          {
+            "id": "NotificationsController",
+            "name": "NotificationsController",
+            "kind": "module",
+            "loc": 59,
+            "file": "Controllers/NotificationsController.cs",
+            "language": "csharp",
+            "description": "NotificationsController is an entry point that gives administrators their notification feed. It serves an admin notification dashboard and fetches pending notifications from a queue, returning at most 10 at a time so the screen isn't flooded. It also lets a user mark a notification as read. It inherits from BaseController and calls NotificationService, which receives the notifications and marks them read, to handle Notification items. It renders Views/Notifications. Dispatches reach it from RouteConfig, Views/Notifications, Views/Shared and notifications.js."
+          },
+          {
+            "id": "Views/Notifications",
+            "name": "Views/Notifications",
+            "kind": "screen",
+            "loc": 99,
+            "file": "Views/Notifications",
+            "language": "razor",
+            "description": "Views/Notifications is the 99-line Razor screen titled \"Admin Notifications\". It tells administrators that they get real-time alerts when Students, Courses, Instructors or Departments are created, updated or deleted. It also describes delivery through Microsoft Message Queuing (MSMQ), with a check interval of 5 seconds and at most 5 notifications visible at a time. That description is fixed page text, not code that runs in this view. NotificationsController renders it. Its \"Create\" links dispatch to StudentsController, CoursesController, InstructorsController and DepartmentsController, and it also dispatches to NotificationsController."
+          },
+          {
+            "id": "notifications.js",
+            "name": "notifications.js",
+            "kind": "module",
+            "loc": 129,
+            "file": "Scripts/notifications.js",
+            "language": "javascript",
+            "description": "notifications.js is the browser-side Notification System for Admin Users. It checks for new activity every 5 seconds and shows an on-screen alert for each change, giving the operation (such as CREATE or DELETE), entity type, message, author and time. It keeps at most 5 alerts visible and removes each one after 1 minute. Views/Shared calls it, and it sends its requests to NotificationsController through /Notifications/GetNotifications. The excerpt puts server-supplied text into the page without escaping, which should be reviewed."
+          },
+          {
+            "id": "Notification",
+            "name": "Notification",
+            "kind": "module",
+            "loc": 37,
+            "file": "Models/Notification.cs",
+            "language": "csharp",
+            "description": "Notification is the record the system keeps when a university entity is created, updated or deleted. Each record holds the EntityType, the EntityId, the Operation (CREATE, UPDATE or DELETE), a Message of up to 256 characters, CreatedAt and CreatedBy, and an IsRead flag with a ReadAt time, so staff can tell which alerts they have seen. It is a 37-line C# data model in Models/Notification.cs. It makes no outbound calls. NotificationService, NotificationsController and SchoolContext call it."
+          }
+        ]
+      },
+      {
+        "id": "dom:home",
+        "name": "Home and Reporting",
+        "kind": "domain",
+        "children": [
+          {
+            "id": "HomeController",
+            "name": "HomeController",
+            "kind": "module",
+            "loc": 41,
+            "file": "Controllers/HomeController.cs",
+            "language": "csharp",
+            "description": "HomeController is an entry point that runs the application's general public pages: the landing page (Index), an About page that counts students by enrollment date, a Contact page, an Error page, and an Unauthorized page that tells users they lack permission. It inherits from BaseController and builds EnrollmentDateGroup summaries from student data, which reads the ds:Person data store. It sends its output to Views/Home. RouteConfig and Views/Shared route requests to it."
+          },
+          {
+            "id": "Views/Home",
+            "name": "Views/Home",
+            "kind": "screen",
+            "loc": 63,
+            "file": "Views/Home",
+            "language": "razor",
+            "description": "Views/Home is the public front door of the Contoso University application, a set of Razor screens totaling 63 lines. It holds a welcome Home Page, a Contact page with the university's address and its Support and Marketing addresses, and a \"Student Body Statistics\" page that shows how many students enrolled on each Enrollment Date. HomeController is the only caller that dispatches to these screens. From the Home Page, users go through to StudentsController, CoursesController and InstructorsController to manage students, courses and instructors."
+          },
+          {
+            "id": "EnrollmentDateGroup",
+            "name": "EnrollmentDateGroup",
+            "kind": "module",
+            "loc": 11,
+            "file": "Models/SchoolViewModels/EnrollmentDateGroup.cs",
+            "language": "csharp",
+            "description": "EnrollmentDateGroup is a small view model, 11 lines of C# in Models/SchoolViewModels/EnrollmentDateGroup.cs. It carries summary figures that show how many students enrolled on a given date. It has two fields: an optional EnrollmentDate, marked as a date for display, and a StudentCount. It doesn't call, read or write any other part of the system, since it has no outbound connections. Its only inbound connection is a call from HomeController, which appears to use it to show these enrollment totals, but the packet doesn't confirm how HomeController uses it."
+          }
+        ]
+      },
+      {
+        "id": "dom:stores",
+        "name": "Data stores",
+        "kind": "domain",
+        "children": [
+          {
+            "id": "ds:Person",
+            "name": "SQL table Person",
+            "kind": "datastore"
+          },
+          {
+            "id": "ds:Course",
+            "name": "SQL table Course",
+            "kind": "datastore"
+          },
+          {
+            "id": "ds:Department",
+            "name": "SQL table Department",
+            "kind": "datastore"
+          },
+          {
+            "id": "ds:Enrollment",
+            "name": "SQL table Enrollment",
+            "kind": "datastore"
+          },
+          {
+            "id": "ds:CourseAssignment",
+            "name": "SQL table CourseAssignment",
+            "kind": "datastore"
+          },
+          {
+            "id": "ds:OfficeAssignment",
+            "name": "SQL table OfficeAssignment",
+            "kind": "datastore"
+          },
+          {
+            "id": "ds:Notification",
+            "name": "SQL table Notification",
+            "kind": "datastore"
+          },
+          {
+            "id": "ds:MSMQ:ContosoUniversityNotifications",
+            "name": "MSMQ private queue ContosoUniversityNotifications",
+            "kind": "datastore"
+          },
+          {
+            "id": "ds:Disk:Uploads/TeachingMaterials",
+            "name": "Disk folder ~/Uploads/TeachingMaterials",
+            "kind": "datastore"
+          }
+        ]
+      }
+    ]
+  },
+  "edges": [
+    {
+      "source": "BaseController",
+      "target": "NotificationService",
+      "kind": "call"
+    },
+    {
+      "source": "BaseController",
+      "target": "SchoolContext",
+      "kind": "call"
+    },
+    {
+      "source": "BaseController",
+      "target": "SchoolContextFactory",
+      "kind": "call"
+    },
+    {
+      "source": "Course",
+      "target": "CourseAssignment",
+      "kind": "call"
+    },
+    {
+      "source": "Course",
+      "target": "Department",
+      "kind": "call"
+    },
+    {
+      "source": "Course",
+      "target": "Enrollment",
+      "kind": "call"
+    },
+    {
+      "source": "CourseAssignment",
+      "target": "Course",
+      "kind": "call"
+    },
+    {
+      "source": "CourseAssignment",
+      "target": "Instructor",
+      "kind": "call"
+    },
+    {
+      "source": "CoursesController",
+      "target": "BaseController",
+      "kind": "call"
+    },
+    {
+      "source": "CoursesController",
+      "target": "Course",
+      "kind": "call"
+    },
+    {
+      "source": "CoursesController",
+      "target": "Department",
+      "kind": "call"
+    },
+    {
+      "source": "CoursesController",
+      "target": "NotificationService",
+      "kind": "call"
+    },
+    {
+      "source": "CoursesController",
+      "target": "Views/Courses",
+      "kind": "dispatch"
+    },
+    {
+      "source": "CoursesController",
+      "target": "ds:Course",
+      "kind": "read"
+    },
+    {
+      "source": "CoursesController",
+      "target": "ds:Course",
+      "kind": "write"
+    },
+    {
+      "source": "CoursesController",
+      "target": "ds:Department",
+      "kind": "read"
+    },
+    {
+      "source": "CoursesController",
+      "target": "ds:Disk:Uploads/TeachingMaterials",
+      "kind": "write"
+    },
+    {
+      "source": "DbInitializer",
+      "target": "Course",
+      "kind": "call"
+    },
+    {
+      "source": "DbInitializer",
+      "target": "CourseAssignment",
+      "kind": "call"
+    },
+    {
+      "source": "DbInitializer",
+      "target": "Department",
+      "kind": "call"
+    },
+    {
+      "source": "DbInitializer",
+      "target": "Enrollment",
+      "kind": "call"
+    },
+    {
+      "source": "DbInitializer",
+      "target": "Instructor",
+      "kind": "call"
+    },
+    {
+      "source": "DbInitializer",
+      "target": "OfficeAssignment",
+      "kind": "call"
+    },
+    {
+      "source": "DbInitializer",
+      "target": "SchoolContext",
+      "kind": "call"
+    },
+    {
+      "source": "DbInitializer",
+      "target": "Student",
+      "kind": "call"
+    },
+    {
+      "source": "DbInitializer",
+      "target": "ds:Course",
+      "kind": "write"
+    },
+    {
+      "source": "DbInitializer",
+      "target": "ds:CourseAssignment",
+      "kind": "write"
+    },
+    {
+      "source": "DbInitializer",
+      "target": "ds:Department",
+      "kind": "write"
+    },
+    {
+      "source": "DbInitializer",
+      "target": "ds:Enrollment",
+      "kind": "write"
+    },
+    {
+      "source": "DbInitializer",
+      "target": "ds:OfficeAssignment",
+      "kind": "write"
+    },
+    {
+      "source": "DbInitializer",
+      "target": "ds:Person",
+      "kind": "write"
+    },
+    {
+      "source": "Department",
+      "target": "Course",
+      "kind": "call"
+    },
+    {
+      "source": "Department",
+      "target": "Instructor",
+      "kind": "call"
+    },
+    {
+      "source": "DepartmentsController",
+      "target": "BaseController",
+      "kind": "call"
+    },
+    {
+      "source": "DepartmentsController",
+      "target": "Department",
+      "kind": "call"
+    },
+    {
+      "source": "DepartmentsController",
+      "target": "NotificationService",
+      "kind": "call"
+    },
+    {
+      "source": "DepartmentsController",
+      "target": "Views/Departments",
+      "kind": "dispatch"
+    },
+    {
+      "source": "DepartmentsController",
+      "target": "ds:Department",
+      "kind": "read"
+    },
+    {
+      "source": "DepartmentsController",
+      "target": "ds:Department",
+      "kind": "write"
+    },
+    {
+      "source": "DepartmentsController",
+      "target": "ds:Person",
+      "kind": "read"
+    },
+    {
+      "source": "Enrollment",
+      "target": "Course",
+      "kind": "call"
+    },
+    {
+      "source": "Enrollment",
+      "target": "Student",
+      "kind": "call"
+    },
+    {
+      "source": "FilterConfig",
+      "target": "Views/Shared",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Global.asax.cs",
+      "target": "BundleConfig",
+      "kind": "call"
+    },
+    {
+      "source": "Global.asax.cs",
+      "target": "DbInitializer",
+      "kind": "call"
+    },
+    {
+      "source": "Global.asax.cs",
+      "target": "FilterConfig",
+      "kind": "call"
+    },
+    {
+      "source": "Global.asax.cs",
+      "target": "RouteConfig",
+      "kind": "call"
+    },
+    {
+      "source": "Global.asax.cs",
+      "target": "SchoolContext",
+      "kind": "call"
+    },
+    {
+      "source": "Global.asax.cs",
+      "target": "Web.config",
+      "kind": "read"
+    },
+    {
+      "source": "HomeController",
+      "target": "BaseController",
+      "kind": "call"
+    },
+    {
+      "source": "HomeController",
+      "target": "EnrollmentDateGroup",
+      "kind": "call"
+    },
+    {
+      "source": "HomeController",
+      "target": "Views/Home",
+      "kind": "dispatch"
+    },
+    {
+      "source": "HomeController",
+      "target": "ds:Person",
+      "kind": "read"
+    },
+    {
+      "source": "Instructor",
+      "target": "CourseAssignment",
+      "kind": "call"
+    },
+    {
+      "source": "Instructor",
+      "target": "OfficeAssignment",
+      "kind": "call"
+    },
+    {
+      "source": "Instructor",
+      "target": "Person",
+      "kind": "call"
+    },
+    {
+      "source": "InstructorIndexData",
+      "target": "Course",
+      "kind": "call"
+    },
+    {
+      "source": "InstructorIndexData",
+      "target": "Enrollment",
+      "kind": "call"
+    },
+    {
+      "source": "InstructorIndexData",
+      "target": "Instructor",
+      "kind": "call"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "AssignedCourseData",
+      "kind": "call"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "BaseController",
+      "kind": "call"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "Course",
+      "kind": "call"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "CourseAssignment",
+      "kind": "call"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "Department",
+      "kind": "call"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "Instructor",
+      "kind": "call"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "InstructorIndexData",
+      "kind": "call"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "NotificationService",
+      "kind": "call"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "OfficeAssignment",
+      "kind": "call"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "Views/Instructors",
+      "kind": "dispatch"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "ds:Course",
+      "kind": "read"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "ds:CourseAssignment",
+      "kind": "read"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "ds:CourseAssignment",
+      "kind": "write"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "ds:Department",
+      "kind": "read"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "ds:Department",
+      "kind": "write"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "ds:OfficeAssignment",
+      "kind": "read"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "ds:OfficeAssignment",
+      "kind": "write"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "ds:Person",
+      "kind": "read"
+    },
+    {
+      "source": "InstructorsController",
+      "target": "ds:Person",
+      "kind": "write"
+    },
+    {
+      "source": "NotificationService",
+      "target": "Notification",
+      "kind": "call"
+    },
+    {
+      "source": "NotificationService",
+      "target": "Web.config",
+      "kind": "read"
+    },
+    {
+      "source": "NotificationService",
+      "target": "ds:MSMQ:ContosoUniversityNotifications",
+      "kind": "read"
+    },
+    {
+      "source": "NotificationService",
+      "target": "ds:MSMQ:ContosoUniversityNotifications",
+      "kind": "write"
+    },
+    {
+      "source": "NotificationsController",
+      "target": "BaseController",
+      "kind": "call"
+    },
+    {
+      "source": "NotificationsController",
+      "target": "Notification",
+      "kind": "call"
+    },
+    {
+      "source": "NotificationsController",
+      "target": "NotificationService",
+      "kind": "call"
+    },
+    {
+      "source": "NotificationsController",
+      "target": "Views/Notifications",
+      "kind": "dispatch"
+    },
+    {
+      "source": "OfficeAssignment",
+      "target": "Instructor",
+      "kind": "call"
+    },
+    {
+      "source": "RouteConfig",
+      "target": "CoursesController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "RouteConfig",
+      "target": "DepartmentsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "RouteConfig",
+      "target": "HomeController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "RouteConfig",
+      "target": "InstructorsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "RouteConfig",
+      "target": "NotificationsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "RouteConfig",
+      "target": "StudentsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "SchoolContext",
+      "target": "Course",
+      "kind": "call"
+    },
+    {
+      "source": "SchoolContext",
+      "target": "CourseAssignment",
+      "kind": "call"
+    },
+    {
+      "source": "SchoolContext",
+      "target": "Department",
+      "kind": "call"
+    },
+    {
+      "source": "SchoolContext",
+      "target": "Enrollment",
+      "kind": "call"
+    },
+    {
+      "source": "SchoolContext",
+      "target": "Instructor",
+      "kind": "call"
+    },
+    {
+      "source": "SchoolContext",
+      "target": "Notification",
+      "kind": "call"
+    },
+    {
+      "source": "SchoolContext",
+      "target": "OfficeAssignment",
+      "kind": "call"
+    },
+    {
+      "source": "SchoolContext",
+      "target": "Person",
+      "kind": "call"
+    },
+    {
+      "source": "SchoolContext",
+      "target": "Student",
+      "kind": "call"
+    },
+    {
+      "source": "SchoolContextFactory",
+      "target": "SchoolContext",
+      "kind": "call"
+    },
+    {
+      "source": "SchoolContextFactory",
+      "target": "Web.config",
+      "kind": "read"
+    },
+    {
+      "source": "Student",
+      "target": "Enrollment",
+      "kind": "call"
+    },
+    {
+      "source": "Student",
+      "target": "Person",
+      "kind": "call"
+    },
+    {
+      "source": "StudentsController",
+      "target": "BaseController",
+      "kind": "call"
+    },
+    {
+      "source": "StudentsController",
+      "target": "Course",
+      "kind": "call"
+    },
+    {
+      "source": "StudentsController",
+      "target": "Enrollment",
+      "kind": "call"
+    },
+    {
+      "source": "StudentsController",
+      "target": "NotificationService",
+      "kind": "call"
+    },
+    {
+      "source": "StudentsController",
+      "target": "PaginatedList",
+      "kind": "call"
+    },
+    {
+      "source": "StudentsController",
+      "target": "Student",
+      "kind": "call"
+    },
+    {
+      "source": "StudentsController",
+      "target": "Views/Students",
+      "kind": "dispatch"
+    },
+    {
+      "source": "StudentsController",
+      "target": "ds:Course",
+      "kind": "read"
+    },
+    {
+      "source": "StudentsController",
+      "target": "ds:Enrollment",
+      "kind": "read"
+    },
+    {
+      "source": "StudentsController",
+      "target": "ds:Person",
+      "kind": "read"
+    },
+    {
+      "source": "StudentsController",
+      "target": "ds:Person",
+      "kind": "write"
+    },
+    {
+      "source": "Views/Courses",
+      "target": "BundleConfig",
+      "kind": "call"
+    },
+    {
+      "source": "Views/Courses",
+      "target": "CoursesController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Courses",
+      "target": "ds:Disk:Uploads/TeachingMaterials",
+      "kind": "read"
+    },
+    {
+      "source": "Views/Departments",
+      "target": "BundleConfig",
+      "kind": "call"
+    },
+    {
+      "source": "Views/Departments",
+      "target": "DepartmentsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Home",
+      "target": "CoursesController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Home",
+      "target": "InstructorsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Home",
+      "target": "StudentsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Instructors",
+      "target": "BundleConfig",
+      "kind": "call"
+    },
+    {
+      "source": "Views/Instructors",
+      "target": "InstructorsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Notifications",
+      "target": "CoursesController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Notifications",
+      "target": "DepartmentsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Notifications",
+      "target": "InstructorsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Notifications",
+      "target": "NotificationsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Notifications",
+      "target": "StudentsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Shared",
+      "target": "BundleConfig",
+      "kind": "call"
+    },
+    {
+      "source": "Views/Shared",
+      "target": "CoursesController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Shared",
+      "target": "DepartmentsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Shared",
+      "target": "HomeController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Shared",
+      "target": "InstructorsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Shared",
+      "target": "NotificationsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Shared",
+      "target": "StudentsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "Views/Shared",
+      "target": "notifications.js",
+      "kind": "call"
+    },
+    {
+      "source": "Views/Students",
+      "target": "BundleConfig",
+      "kind": "call"
+    },
+    {
+      "source": "Views/Students",
+      "target": "StudentsController",
+      "kind": "dispatch"
+    },
+    {
+      "source": "notifications.js",
+      "target": "NotificationsController",
+      "kind": "dispatch"
+    }
+  ],
+  "entryPoints": [
+    "Global.asax.cs",
+    "notifications.js",
+    "CoursesController",
+    "DepartmentsController",
+    "HomeController",
+    "InstructorsController",
+    "NotificationsController",
+    "StudentsController"
+  ],
+  "deadEnds": [
+    "ErrorViewModel",
+    "LoggingService"
+  ],
+  "observations": [
+    "Every controller inherits BaseController, which creates a SchoolContext via SchoolContextFactory and a new NotificationService per request: the base class is the single coupling hub (data, messaging, error swallowing) and the natural seam for dependency injection in the rebuild.",
+    "MSMQ queue ContosoUniversityNotifications has three writers (Students, Courses, Instructors/Departments via NotificationService) and one destructive reader (NotificationsController polled by notifications.js every 5 s): a single point of failure, since the NotificationService constructor runs on every request and is not guarded.",
+    "SQL table Person has 3 writers (DbInitializer, InstructorsController, StudentsController) because Student and Instructor share one TPH table; Students and Faculty contexts must agree on its ownership when split.",
+    "Instructors and Departments are tightly coupled to Courses (course-assignment checklist reads Course; instructor delete writes Department.InstructorID); Students and Home are the cleanest extraction candidates.",
+    "Tables the running app never writes: Enrollment (seed only), Notification (no writer at all). Enrollment has no UI; Notification is mapped in SchoolContext but notifications live only in MSMQ.",
+    "Controllers are reached by the convention route {controller}/{action}/{id} and views by the View() naming convention, not by code references; these are modelled as dispatch edges from RouteConfig and to Views/<Name>. Reflection-style call sites (no unresolved targets): SchoolContext: GetEntityTypes() x1; SchoolContext: typeof( x2; Student: typeof( x1; Instructor: typeof( x1; NotificationService: typeof( x1."
+  ],
+  "flows": [
+    {
+      "name": "Register a new student",
+      "persona": "Registrar",
+      "description": "A registrar adds a newly admitted student and administrators are told about it.",
+      "steps": [
+        {
+          "label": "Open the student list from the navigation bar",
+          "nodes": [
+            "Views/Shared",
+            "RouteConfig",
+            "StudentsController"
+          ]
+        },
+        {
+          "label": "Fill in name and enrollment date",
+          "nodes": [
+            "Views/Students"
+          ]
+        },
+        {
+          "label": "Validate the date and save the student",
+          "nodes": [
+            "StudentsController",
+            "BaseController",
+            "SchoolContextFactory",
+            "ds:Person"
+          ]
+        },
+        {
+          "label": "Announce the new student to administrators",
+          "nodes": [
+            "NotificationService",
+            "ds:MSMQ:ContosoUniversityNotifications"
+          ]
+        },
+        {
+          "label": "Return to the paged, searchable list",
+          "nodes": [
+            "StudentsController",
+            "PaginatedList",
+            "Views/Students"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Publish a course with its textbook image",
+      "persona": "Department coordinator",
+      "description": "A coordinator creates a course in a department and attaches a picture of the teaching material.",
+      "steps": [
+        {
+          "label": "Open the new-course form with the department list",
+          "nodes": [
+            "CoursesController",
+            "ds:Department",
+            "Views/Courses"
+          ]
+        },
+        {
+          "label": "Check the image type and size and store the file",
+          "nodes": [
+            "CoursesController",
+            "ds:Disk:Uploads/TeachingMaterials"
+          ]
+        },
+        {
+          "label": "Save the course",
+          "nodes": [
+            "CoursesController",
+            "ds:Course"
+          ]
+        },
+        {
+          "label": "Announce the new course",
+          "nodes": [
+            "NotificationService",
+            "ds:MSMQ:ContosoUniversityNotifications"
+          ]
+        },
+        {
+          "label": "Show the course list with thumbnails",
+          "nodes": [
+            "Views/Courses",
+            "ds:Disk:Uploads/TeachingMaterials"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Assign an instructor to courses and an office",
+      "persona": "Department chair",
+      "description": "A chair updates an instructor's office and the courses they teach.",
+      "steps": [
+        {
+          "label": "Pick an instructor and see their courses and students",
+          "nodes": [
+            "InstructorsController",
+            "InstructorIndexData",
+            "ds:Person",
+            "ds:CourseAssignment",
+            "ds:Enrollment",
+            "Views/Instructors"
+          ]
+        },
+        {
+          "label": "Open the edit form with the course checklist",
+          "nodes": [
+            "InstructorsController",
+            "AssignedCourseData",
+            "ds:Course",
+            "Views/Instructors"
+          ]
+        },
+        {
+          "label": "Save office location and course assignments",
+          "nodes": [
+            "InstructorsController",
+            "ds:OfficeAssignment",
+            "ds:CourseAssignment",
+            "ds:Person"
+          ]
+        },
+        {
+          "label": "Announce the change",
+          "nodes": [
+            "NotificationService",
+            "ds:MSMQ:ContosoUniversityNotifications"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "See live change alerts",
+      "persona": "Administrator",
+      "description": "An administrator browsing any page sees pop-up alerts when someone changes records.",
+      "steps": [
+        {
+          "label": "Any page loads the alert script",
+          "nodes": [
+            "Views/Shared",
+            "notifications.js"
+          ]
+        },
+        {
+          "label": "Every 5 seconds the page asks for new alerts",
+          "nodes": [
+            "notifications.js",
+            "NotificationsController"
+          ]
+        },
+        {
+          "label": "Take up to 10 alerts off the queue",
+          "nodes": [
+            "NotificationService",
+            "ds:MSMQ:ContosoUniversityNotifications"
+          ]
+        },
+        {
+          "label": "Show each alert as a pop-up",
+          "nodes": [
+            "notifications.js"
+          ]
+        }
+      ]
+    }
+  ]
+}

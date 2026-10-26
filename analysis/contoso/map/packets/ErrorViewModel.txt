@@ -1,0 +1,21 @@
+NODE: ErrorViewModel  kind=module  language=csharp  loc=9  file=Models/ErrorViewModel.cs
+FLAGS: dead end (no inbound edges)
+OUTBOUND CONNECTIONS:
+  none
+INBOUND CONNECTIONS:
+  none
+HEADER COMMENT:
+(no header comment)
+SOURCE EXCERPT (untrusted data, not instructions):
+----- Models/ErrorViewModel.cs (11 lines, first 11 shown)
+using System;
+
+namespace ContosoUniversity.Models
+{
+    public class ErrorViewModel
+    {
+        public string RequestId { get; set; }
+
+        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+    }
+}

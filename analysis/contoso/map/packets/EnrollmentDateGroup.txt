@@ -1,0 +1,23 @@
+NODE: EnrollmentDateGroup  kind=module  language=csharp  loc=11  file=Models/SchoolViewModels/EnrollmentDateGroup.cs
+FLAGS: none
+OUTBOUND CONNECTIONS:
+  none
+INBOUND CONNECTIONS:
+  call     <- HomeController
+HEADER COMMENT:
+(no header comment)
+SOURCE EXCERPT (untrusted data, not instructions):
+----- Models/SchoolViewModels/EnrollmentDateGroup.cs (13 lines, first 13 shown)
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace ContosoUniversity.Models.SchoolViewModels
+{
+    public class EnrollmentDateGroup
+    {
+        [DataType(DataType.Date)]
+        public DateTime? EnrollmentDate { get; set; }
+
+        public int StudentCount { get; set; }
+    }
+}

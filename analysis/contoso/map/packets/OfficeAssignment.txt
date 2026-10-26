@@ -1,0 +1,29 @@
+NODE: OfficeAssignment  kind=module  language=csharp  loc=14  file=Models/OfficeAssignment.cs
+FLAGS: none
+OUTBOUND CONNECTIONS:
+  call     -> Instructor
+INBOUND CONNECTIONS:
+  call     <- DbInitializer
+  call     <- Instructor
+  call     <- InstructorsController
+  call     <- SchoolContext
+HEADER COMMENT:
+(no header comment)
+SOURCE EXCERPT (untrusted data, not instructions):
+----- Models/OfficeAssignment.cs (16 lines, first 16 shown)
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ContosoUniversity.Models
+{
+    public class OfficeAssignment
+    {
+        [Key]
+        public int InstructorID { get; set; }
+        [StringLength(50)]
+        [Display(Name = "Office Location")]
+        public string Location { get; set; }
+
+        public virtual Instructor Instructor { get; set; }
+    }
+}

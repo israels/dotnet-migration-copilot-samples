@@ -1,0 +1,48 @@
+NODE: Department  kind=module  language=csharp  loc=25  file=Models/Department.cs
+FLAGS: none
+OUTBOUND CONNECTIONS:
+  call     -> Course
+  call     -> Instructor
+INBOUND CONNECTIONS:
+  call     <- Course
+  call     <- CoursesController
+  call     <- DbInitializer
+  call     <- DepartmentsController
+  call     <- InstructorsController
+  call     <- SchoolContext
+HEADER COMMENT:
+(no header comment)
+SOURCE EXCERPT (untrusted data, not instructions):
+----- Models/Department.cs (32 lines, first 32 shown)
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ContosoUniversity.Models
+{
+    public class Department
+    {
+        public int DepartmentID { get; set; }
+
+        [StringLength(50, MinimumLength = 3)]
+        public string Name { get; set; }
+
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "money")]
+        public decimal Budget { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Start Date")]
+        public DateTime StartDate { get; set; }
+
+        public int? InstructorID { get; set; }
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
+
+        public virtual Instructor Administrator { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
+    }
+}

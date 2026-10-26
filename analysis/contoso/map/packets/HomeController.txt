@@ -1,0 +1,61 @@
+NODE: HomeController  kind=module  language=csharp  loc=41  file=Controllers/HomeController.cs
+FLAGS: entry point
+OUTBOUND CONNECTIONS:
+  call     -> BaseController
+  call     -> EnrollmentDateGroup
+  dispatch -> Views/Home
+  read     -> ds:Person
+INBOUND CONNECTIONS:
+  dispatch <- RouteConfig
+  dispatch <- Views/Shared
+HEADER COMMENT:
+(no header comment)
+SOURCE EXCERPT (untrusted data, not instructions):
+----- Controllers/HomeController.cs (47 lines, first 47 shown)
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using ContosoUniversity.Data;
+using ContosoUniversity.Models.SchoolViewModels;
+
+namespace ContosoUniversity.Controllers
+{
+    public class HomeController : BaseController
+    {
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult About()
+        {
+            IQueryable<EnrollmentDateGroup> data = 
+                from student in db.Students
+                group student by student.EnrollmentDate into dateGroup
+                select new EnrollmentDateGroup()
+                {
+                    EnrollmentDate = dateGroup.Key,
+                    StudentCount = dateGroup.Count()
+                };
+            return View(data.ToList());
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult Error()
+        {
+            return View();
+        }
+
+        public ActionResult Unauthorized()
+        {
+            ViewBag.Message = "You don't have permission to access this resource.";
+            return View();
+        }
+    }
+}

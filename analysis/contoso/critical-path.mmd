@@ -1,0 +1,18 @@
+%% Primary flow: a registrar registers a new student. No telemetry was available (assess), so no p50/p99.
+flowchart TD
+  A([Registrar clicks Students in navbar<br/>Views/Shared]) --> B[RouteConfig: /Students/Create]
+  B --> C[StudentsController constructed<br/>BaseController: new SchoolContext + new NotificationService]
+  C --> C1{MSMQ queue exists?}
+  C1 -- no --> C2[MessageQueue.Create<br/>Everyone: FullControl]
+  C1 -- yes --> D
+  C2 --> D[GET Create: form with EnrollmentDate = today<br/>Views/Students/Create]
+  D --> E[POST Create: anti-forgery check, Bind LastName, FirstMidName, EnrollmentDate]
+  E --> F{EnrollmentDate valid and ModelState valid?}
+  F -- no --> D
+  F -- yes --> G[(db.Students.Add + SaveChanges<br/>Person table)]
+  G --> H[SendEntityNotification CREATE<br/>NotificationService.Send]
+  H --> I[(MSMQ ContosoUniversityNotifications)]
+  H -. failure swallowed .-> J
+  I --> J[Redirect to Students Index<br/>search, sort, PaginatedList page size 10]
+  I -. polled every 5 s .-> K[notifications.js -> NotificationsController.GetNotifications<br/>destructive Receive, up to 10]
+  K --> L([Toast shown to whichever browser polled first])
