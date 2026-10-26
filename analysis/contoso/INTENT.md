@@ -21,3 +21,15 @@ Date: 2026-10-26
   2. One React 19 SPA container.
 - **Code structure:** Clean Architecture projects, with vertical slices grouped by bounded contexts.
 - **Still true:** Behavior must match exactly, including known quirks.
+
+## Update (2026-10-26): deployment platform, in their words
+"The target deployment is actually Azure container apps. So it's a containerized solution, and things like uploaded images should likely be stored in Azure Blob Storage and authentication should likely use Entra"
+
+- **Hosting:** Azure Container Apps. The API and the SPA are two container apps in one environment.
+- **Uploaded images:** Azure Blob Storage (stated as "likely").
+- **Authentication:** Microsoft Entra ID (stated as "likely"). Roles and permissions are still open.
+
+## Update (2026-10-26): local development without Entra, in their words
+"When running in development mode locally, there should be also a way to bypass entra authentication so there is not that live dependency when doing development or testing locally"
+
+- **Local dev and tests:** an Entra bypass for local development mode and local testing, so they don't depend on a live Entra tenant.
