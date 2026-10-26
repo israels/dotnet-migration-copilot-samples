@@ -1,0 +1,17 @@
+{
+  "system": "contoso",
+  "version": 1,
+  "reviews": {
+    "RULE-006": {
+      "verdict": "confirmed",
+      "at": "2026-10-26T22:22:36Z",
+      "title": "Department edits use optimistic concurrency (first save wins)",
+      "note": "First save wins, with a deliberate overwrite that works. Block a save made with a stale RowVersion, show 'Current value: X' next to each conflicting field, and let a second Save overwrite. The legacy second save fails because HiddenFor re-posts the stale RowVersion; the rewrite must fix this (refresh the token). A delete made with a stale RowVersion is blocked the same way."
+    },
+    "RULE-033": {
+      "verdict": "wrong",
+      "at": "2026-10-26T22:20:26Z",
+      "title": "No authentication or authorization required for any page"
+    }
+  }
+}

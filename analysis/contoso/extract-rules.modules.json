@@ -1,0 +1,104 @@
+[
+ {
+  "name": "Startup and Shell:small-1",
+  "domain": "Startup and Shell",
+  "files": [
+   "Global.asax.cs",
+   "App_Start/RouteConfig.cs",
+   "App_Start/FilterConfig.cs",
+   "App_Start/BundleConfig.cs",
+   "Web.config",
+   "Controllers/BaseController.cs",
+   "Models/ErrorViewModel.cs"
+  ],
+  "loc": 269
+ },
+ {
+  "name": "LoggingService",
+  "domain": "Startup and Shell",
+  "files": [
+   "Services/LoggingService.cs"
+  ],
+  "loc": null
+ },
+ {
+  "name": "Data Access:small-1",
+  "domain": "Data Access",
+  "files": [
+   "Data/SchoolContext.cs",
+   "Data/SchoolContextFactory.cs",
+   "Data/DbInitializer.cs"
+  ],
+  "loc": 317
+ },
+ {
+  "name": "Data Access:small-2",
+  "domain": "Data Access",
+  "files": [
+   "PaginatedList.cs",
+   "Models/Person.cs"
+  ],
+  "loc": 51
+ },
+ {
+  "name": "Students:small-1",
+  "domain": "Students",
+  "files": [
+   "Controllers/StudentsController.cs",
+   "Models/Student.cs",
+   "Models/Enrollment.cs"
+  ],
+  "loc": 243
+ },
+ {
+  "name": "Courses and Uploads:small-1",
+  "domain": "Courses and Uploads",
+  "files": [
+   "Controllers/CoursesController.cs",
+   "Models/Course.cs"
+  ],
+  "loc": 255
+ },
+ {
+  "name": "Instructors and Departments:small-1",
+  "domain": "Instructors and Departments",
+  "files": [
+   "Controllers/InstructorsController.cs",
+   "Controllers/DepartmentsController.cs"
+  ],
+  "loc": 388
+ },
+ {
+  "name": "Instructors and Departments:small-2",
+  "domain": "Instructors and Departments",
+  "files": [
+   "Models/Instructor.cs",
+   "Models/Department.cs",
+   "Models/OfficeAssignment.cs",
+   "Models/CourseAssignment.cs",
+   "Models/SchoolViewModels/InstructorIndexData.cs",
+   "Models/SchoolViewModels/AssignedCourseData.cs"
+  ],
+  "loc": 91
+ },
+ {
+  "name": "Notifications (MSMQ):small-1",
+  "domain": "Notifications (MSMQ)",
+  "files": [
+   "Services/NotificationService.cs",
+   "Controllers/NotificationsController.cs",
+   "Scripts/notifications.js",
+   "Models/Notification.cs"
+  ],
+  "loc": 332
+ },
+ {
+  "name": "Home and Reporting:small-1",
+  "domain": "Home and Reporting",
+  "files": [
+   "Controllers/HomeController.cs",
+   "Models/SchoolViewModels/EnrollmentDateGroup.cs"
+  ],
+  "loc": 52
+ }
+]
